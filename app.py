@@ -9,19 +9,17 @@ if __name__ == '__main__':
     socket.listen(1)
     while True:
         clientSocket, addr = socket.accept()
-        print("Connection from " + repr(addr))
-        clientSocket.sendall(bytes("""HTTP/1.0 200 OK
-Content-Type: text/html
-Connection: Close
-Access-Control-Allow-Origin: *
-
-<html>
-<head>
-<title>Success</title>
-</head>
-<body>
-Boo!
-</body>
-</html>
-""", "UTF-8"))
+        print("Connection from " + repr(addr) + " url: " + str(clientSocket.recv(1024)).split(" ")[1])
+        clientSocket.sendall(bytes("HTTP/1.0 200 OK\n"
+                                   "Content-Type: text/html\n"
+                                   "Connection: Close\n"
+                                   "\n"
+                                   "<html>\n"
+                                   "<head>\n"
+                                   "<title>Success</title>\n"
+                                   "</head>\n"
+                                   "<body>\n"
+                                   "Boo!\n"
+                                   "</body>\n"
+                                   "</html>\n", "UTF-8"))
         clientSocket.close()
