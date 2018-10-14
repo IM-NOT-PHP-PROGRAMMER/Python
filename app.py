@@ -13,6 +13,7 @@ if __name__ == '__main__':
         clientSocket.sendall(bytes("HTTP/1.0 200 OK\n"
                                    "Content-Type: text/html\n"
                                    "Connection: Close\n"
+                                   "Access-Control-Allow-Origin: \"*\""
                                    "\n"
                                    "<html>\n"
                                    "<head>\n"
