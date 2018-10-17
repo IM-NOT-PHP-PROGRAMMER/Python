@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import socket
-from Crypto import Random
+from crypto import Random
 
 if __name__ == '__main__':
     host = ''
