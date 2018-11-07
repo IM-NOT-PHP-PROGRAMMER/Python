@@ -6,10 +6,20 @@ if __name__ == '__main__':
     port = 8080
     socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     socket.bind((host, port))
-    socket.listen(1)
+    socket.listen(10)
     while True:
         clientSocket, addr = socket.accept()
-        print("Connection from " + repr(addr) + " url: " + str(clientSocket.recv(1024)).split(" ")[1])
+
+        clientRequest = str(clientSocket.recv(1024))
+        clientPath = clientRequest.split(" ")[1]
+        print("Connection from {addr} path: {clientPath}".format(addr=addr, clientPath=clientPath))
+
+        if not "?" in clientPath or clientPath[:clientPath.index("?")] != "/proceed" or not "?e=" in clientPath or "&" in clientPath[(clientPath.index("?") + 3):]:
+            clientSocket.close()
+            continue
+
+        e = clientPath[(clientPath.index("?") + 3):]
+
         clientSocket.sendall(bytes("HTTP/1.0 200 OK\n"
                                    "Content-Type: text/html\n"
                                    "Connection: Close\n"
