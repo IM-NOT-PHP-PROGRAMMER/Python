@@ -2,6 +2,12 @@
 import socket
 
 if __name__ == '__main__':
+    try:
+        from Crypto.Hash import SHA
+        print("successfully imported")
+    except:
+        print("cant do that")
+
     host = ''
     port = 8080
     socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
